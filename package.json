@@ -1,0 +1,20 @@
+{
+  "name": "sleep-automation",
+  "scripts": {
+    "run": "node dist/handler.js",
+    "build": "esbuild src/handler.ts --bundle --platform=node --target=node18 --outfile=dist/handler.js",
+    "prettier:fix": "prettier --write"
+  },
+  "devDependencies": {
+    "@types/luxon": "^3.6.2",
+    "@types/node": "^24.0.10",
+    "axios": "^1.10.0",
+    "esbuild": "^0.25.5",
+    "prettier": "^3.6.2"
+  },
+  "dependencies": {
+    "luxon": "^3.6.1",
+    "tsx": "^4.20.3",
+    "uuid": "^11.1.0"
+  }
+}
