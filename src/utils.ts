@@ -1,5 +1,6 @@
 import { DateTime } from "luxon";
 import { WhoopDateTime } from "./whoop/types";
+import { ESTime } from "./eightlseep/types";
 
 /**
  * Takes a whoop time and timezone offset and returns a date
@@ -17,4 +18,9 @@ export function newWhoopTime(time: WhoopDateTime, tzOffset: string): DateTime {
   return t;
 }
 
-export const newEightSleepTime = (dt: DateTime) => dt.toFormat("hh:mm':00'");
+/**
+ * takes a DateTime dt and a timezone as Americas/New_York and returns the time of dt in that timezone
+ */
+export const newEightSleepTime = (dt: DateTime, tz: string): ESTime => {
+  return dt.setZone(tz).toFormat("hh:mm':00'");
+}

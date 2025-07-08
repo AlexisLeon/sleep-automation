@@ -5,13 +5,13 @@ export const WHOOP_DEFAULT_ALARM_PAYLOAD: Omit<CreateAlarmRequest, "id" | "time"
   snoozing: false,
   tags: [],
   thermal: {
-    level: 50,
+    level: 70,
     enabled: true,
   },
   vibration: {
     powerLevel: 50,
     enabled: true,
-    pattern: "INTENSE",
+    pattern: "RISE",
   },
   // time: "07:00:00",
   // id: "00BFEB94-D07B-495F-824E-C4C7F3293697",

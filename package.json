@@ -2,7 +2,7 @@
   "name": "sleep-automation",
   "scripts": {
     "run": "node dist/handler.js",
-    "build": "esbuild src/handler.ts --bundle --platform=node --target=node18 --outfile=dist/lambda.js",
+    "build": "esbuild src/handler.ts --bundle --platform=node --target=node22 --outfile=dist/lambda.js",
     "prettier:fix": "prettier --write"
   },
   "devDependencies": {

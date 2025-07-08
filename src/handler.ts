@@ -63,7 +63,7 @@ export const handler = async () => {
     console.log(`[handler:whoop] to wake up at alarm=${whoopWakeUpAlarm}, go to bed by ${goToBedBy}`);
 
     bedtime = goToBedBy;
-    wakeupAlarm = goToBedBy;
+    wakeupAlarm = whoopWakeUpAlarm;
   } else {
     console.debug("[handler:wakeup] alarm disabled, fallback to sleep coach recommendation for 100% recovery");
 
@@ -78,8 +78,12 @@ export const handler = async () => {
     console.log(`[handler:whoop] sleep coach recommendation for 100% recovery=${bedtime}`);
   }
 
-  const bedtimeFmt: ESTime = newEightSleepTime(bedtime);
-  const wakeupAlarmFmt: ESTime = newEightSleepTime(wakeupAlarm);
+  const meUser = await eightSleep.getMeUser();
+  console.debug("[handler:8sleep] me user", JSON.stringify(meUser));
+
+  const bedtimeFmt: ESTime = newEightSleepTime(bedtime, meUser.user.currentDevice.timeZone);
+  const wakeupAlarmFmt: ESTime = newEightSleepTime(wakeupAlarm, meUser.user.currentDevice.timeZone);
+  console.log(`[handler:8sleep] computed tz=${meUser.user.currentDevice.timeZone} bedtime_alarm=${bedtimeFmt} wakeup_alarm=${wakeupAlarmFmt}`);
 
   const schedules = await eightSleep.listSchedules();
   console.debug("[handler:8sleep] schedules", JSON.stringify(schedules));
@@ -101,7 +105,6 @@ export const handler = async () => {
   console.debug("[handler:8sleep] saving new bedtime schedule", JSON.stringify(setBedtimePayload));
   await eightSleep.setUserBedtime(setBedtimePayload);
   console.log(`[handler:8sleep] new bedtime schedule set to ${bedtimeFmt}`);
-
 
   // Delete all alarms but one. Sync to Whoop wake-up time
   console.log("[handler:8sleep] syncing 8sleep alarm to whoop alarm");
