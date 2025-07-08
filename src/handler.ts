@@ -102,7 +102,10 @@ export const handler = async () => {
   await eightSleep.setUserBedtime(setBedtimePayload);
   console.log(`[handler:8sleep] new bedtime schedule set to ${bedtimeFmt}`);
 
-  console.log("[handler:8sleep] patching alarms");
+
+  // Delete all alarms but one. Sync to Whoop wake-up time
+  console.log("[handler:8sleep] syncing 8sleep alarm to whoop alarm");
+
   const { alarms } = await eightSleep.listAlarms();
   console.debug("[handler:8sleep] found alarms", JSON.stringify(alarms));
 
